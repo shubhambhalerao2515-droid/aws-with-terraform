@@ -1,0 +1,5 @@
+bucket_name = "dev-shubh-2515"
+  aws_region  = "ap-south-1"
+  environment = "dev"
+  aws_s3_bucket_versioning = "Enabled"
+  aws_s3_bucket_acl = "private"

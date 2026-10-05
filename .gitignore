@@ -78,3 +78,8 @@ C:\aws_with_terraform_july_batch\Day-03\.terraform.lock.hcl
 C:\aws_with_terraform_july_batch\environments\networking\VPC\dev\.terraform\*
 C:\aws_with_terraform_july_batch\environments\networking\VPC\dev\.terraform.lock.hcl
 C:\aws_with_terraform_july_batch\environments\networking\VPC\dev\errored.tfstate
+C:\aws-with-terraform\environments\storage\S3\dev\.terraform.lock.hcl
+C:\aws-with-terraform\environments\compute
+C:\aws-with-terraform\environments\compute\EC2
+C:\aws-with-terraform\environments\DNS\.terraform
+C:\aws-with-terraform\environments\DNS\.terraform.lock.hcl
