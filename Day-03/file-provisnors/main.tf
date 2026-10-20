@@ -1,10 +1,3 @@
-
-
-# resource "aws_key_pair" "fctp_self_managed_key" {
-#   key_name   = var.key_name
-#   public_key = file("C:\\aws_with_terraform_july_batch\\Day-03\\ssh.pub")
-# }
-
 resource "aws_key_pair" "custom_key" {
   key_name   = "custom-key"
   public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOdE8iK+ztBHGXMlcSi0fP48vhNLeHir/i2jsGT5Yb7N admin@DESKTOP-A6R6UMM"
@@ -24,13 +17,13 @@ connection {
   host = self.public_ip
   user = "ubuntu"
   type = "ssh"
-  private_key = file("C:\\aws_with_terraform_july_batch\\Day-03\\custom-fctp.pem")
+  private_key = file("C:\\aws-with-terraform\\Day-03\\custom-fctp.pem")
   timeout = "4m"
 
 }
 
 provisioner "file" {
-  source = "C:\\aws_with_terraform_july_batch\\Day-03\\index.html"
+  source = "C:\\aws-with-terraform\\Day-03\\index.html"
   destination = "/home/ubuntu/index.html"
 }
 
