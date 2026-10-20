@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "terraform-remote-backend-july-batch-fctp" # this must be your s3 bucket name
+    bucket = "aws-july-batch-s3" # this must be your s3 bucket name
     key    = "Networking/fctp/qa/vpc/terraform.tfstate"
     region = "ap-south-1"
   }
