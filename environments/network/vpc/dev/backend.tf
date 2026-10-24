@@ -2,7 +2,7 @@ terraform {
   backend "s3" {
 
     bucket = "aws-july-batch-s3" # this must be your s3 bucket name
-    key    = "network/fctp/dev/vpc/terraform.tfstate"
+    key    = "storage/fctp/dev/s3/demo/terraform.tfstate"
     region = "ap-south-1"
   }
 }
