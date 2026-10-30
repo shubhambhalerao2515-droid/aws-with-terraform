@@ -12,7 +12,6 @@ module "rds" {
 
   project_name = var.project_name
   environment  = var.environment
-
   ###########################################################
   # Network
   ###########################################################
@@ -23,13 +22,10 @@ module "rds" {
 
   vpc_id = data.terraform_remote_state.network.outputs.vpc_id
 
-  #private_subnet_ids = data.terraform_remote_state.network.outputs.private_subnet_ids
-   private_subnet_ids = data.terraform_remote_state.network.outputs.public_subnet_ids
+  private_subnet_ids = data.terraform_remote_state.network.outputs.private_subnet_ids
+  #private_subnet_ids = data.terraform_remote_state.network.outputs.public_subnet_ids
 
-  allowed_security_group_ids = [
-   module.rds.security_group_id,
-   data.terraform_remote_state.network.outputs.alb_security_group_id
-  ]
+  allowed_security_group_ids = [module.rds.security_group_id]
   ###########################################################
   # KMS
   ###########################################################

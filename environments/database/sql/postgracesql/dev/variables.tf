@@ -117,13 +117,13 @@ variable "tags" {
 }
 
 variable "monitoring_role_name" {
-  type = bool
+  type = string
 }
 
 variable "cloudwatch_log_retention_in_days" {
-
+  type = string
 }
 
 variable "create_cloudwatch_log_group" {
-  type = bool
+  type = string
 }

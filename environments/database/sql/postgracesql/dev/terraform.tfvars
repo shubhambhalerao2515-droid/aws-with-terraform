@@ -16,7 +16,7 @@ db_name = "studentdb"
 
 username = "postgres"
 
-password = "ChangeMe123!"
+password = "SkyTwo#9Wave"
 
 #############################################################
 # Engine

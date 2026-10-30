@@ -1,20 +1,16 @@
 #################################################
-# AMAZON LINUX 2023
+# UBUNTU AMI
 #################################################
 
-#################################################
-# AMAZON LINUX 2023
-#################################################
-
-data "aws_ami" "amazon_linux" {
+data "aws_ami" "ubuntu" {
 
   most_recent = true
 
-  owners = ["amazon"]
+  owners = ["099720109477"] # Canonical
 
   filter {
     name   = "name"
-    values = ["al2023-ami-2023*-x86_64"]
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
   }
 
   filter {
@@ -26,16 +22,20 @@ data "aws_ami" "amazon_linux" {
     name   = "virtualization-type"
     values = ["hvm"]
   }
+
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
 }
 
 #################################################
-# EC2
+# EC2 UBUNTU DOCKER SERVER
 #################################################
 
 resource "aws_instance" "docker_server" {
 
-  ami = data.aws_ami.amazon_linux.id
-
+  ami           = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
 
   subnet_id = aws_subnet.public.id
@@ -43,11 +43,10 @@ resource "aws_instance" "docker_server" {
   key_name = "docker"
 
   vpc_security_group_ids = [
-
     aws_security_group.ec2_sg.id
   ]
 
-user_data = <<-EOF
+  user_data = <<-EOF
 #!/bin/bash
 
 set -eux
@@ -56,30 +55,35 @@ set -eux
 # UPDATE SYSTEM
 #################################################
 
-dnf update -y
+export DEBIAN_FRONTEND=noninteractive
+
+apt-get update -y
+apt-get upgrade -y
 
 #################################################
-# INSTALL PACKAGES
+# INSTALL DOCKER, GIT AND PYTHON
 #################################################
 
-dnf install -y \
-docker \
-git \
-python3 \
-python3-pip
+apt-get install -y \
+  docker.io \
+  git \
+  python3 \
+  python3-pip
 
 #################################################
-# ENABLE DOCKER
+# ENABLE AND START DOCKER
 #################################################
 
 systemctl enable docker
 systemctl start docker
 
 #################################################
-# ADD USERS TO DOCKER GROUP
+# ADD UBUNTU DEFAULT USER TO DOCKER GROUP
 #################################################
 
-usermod -aG docker ec2-user
+sudo su
+sudo usermod -aG docker ubuntu
+sudo su ubuntu
 
 #################################################
 # VERIFY INSTALLATION
@@ -90,13 +94,11 @@ git --version
 python3 --version
 pip3 --version
 
-
-# mkdir -p /home/ec2-user/app-stack
+# mkdir -p /home/ubuntu/app-stack
 
 EOF
 
   tags = {
-
-    Name = "docker-server"
+    Name = "ubuntu-docker-server"
   }
 }
