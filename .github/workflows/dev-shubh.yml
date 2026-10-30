@@ -1,0 +1,11 @@
+name: hello from the shubham bhalerao from shirur
+
+on:
+  workflow_dispatch:
+
+jobs:
+  say-hello-inline:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Say Hello
+        run: echo "Hello from Shubham Bhalerao from Shirur!"
